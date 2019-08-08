@@ -1,5 +1,6 @@
 <template>
     <div>
+      {{msg}}
       <div class="top">
         <div class="logo"><a href="Index.html"><img src="../assets/images/logo.png" /></a></div>
         <div class="search">
@@ -87,28 +88,20 @@
 
           <div class="pro_des">
             <div class="des_name">
-              <p>Dior/迪奥 真我香水EDP 克丽丝汀迪奥 全新 30ml</p>
+              <p >{{msg.name}}</p>
               “开业巨惠，北京专柜直供”，不光低价，“真”才靠谱！
             </div>
             <div class="des_price">
               本店价格：<b>￥589</b><br />
               消费积分：<span>28R</span>
             </div>
-            <div class="des_choice">
-              <span class="fl">型号选择：</span>
-              <ul>
-                <li class="checked">30ml<div class="ch_img"></div></li>
-                <li>50ml<div class="ch_img"></div></li>
-                <li>100ml<div class="ch_img"></div></li>
-              </ul>
-            </div>
-            <div class="des_choice">
-              <span class="fl">颜色选择：</span>
-              <ul>
-                <li>红色<div class="ch_img"></div></li>
-                <li class="checked">白色<div class="ch_img"></div></li>
-                <li>黑色<div class="ch_img"></div></li>
-              </ul>
+            <div class="des_choice" v-for="(value,key) in msg.data">
+              <span class="fl">{{key}}：</span>
+              <label>
+                <span v-for="val in value">
+                <input class="checked" type="radio" v-bind:value="val[1]" v-bind:name="key">{{val[0]}}
+                  </span>
+              </label>
             </div>
             <div class="des_share">
               <div class="d_sh">
@@ -529,6 +522,7 @@
         data () {
             return {
                 goods_id : '',
+                msg : [],
             }
         },
         mounted () {
@@ -537,12 +531,14 @@
             axios.post(this.url+'/index/goodsshow',{
                 goods_id : this.$route.query.goods_id,
             })
-                .then(res=>{
-                    console.log(res)
-                })
-                .catch(function (error) {
-                    console.log(error);
-                });
+                // .then(res=>{
+                //     console.log(res.data)
+                // })
+               .then(response => (this.msg = response.data))
+                // console.log(this.msg)
+                // .catch(function (error) {
+                //     console.log(error);
+                // });
         }
     }
 </script>
