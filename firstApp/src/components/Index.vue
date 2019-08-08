@@ -1,6 +1,5 @@
 <template>
     <div>
-
       <div class="top">
         <div class="logo"><a href="Index.html"><img src="../assets/images/logo.png" /></a></div>
         <div class="search">
@@ -501,22 +500,21 @@
            <div class="i_t mar_10">
              <span class="floor_num">1F</span>
              <span class="fl">{{key}}</span>
-             <span class="i_mores fr"><a href="#">进口咖啡</a>&nbsp; &nbsp; &nbsp; <a href="#">进口酒</a>&nbsp; &nbsp; &nbsp; <a href="#">进口母婴</a>&nbsp; &nbsp; &nbsp; <a href="#">新鲜蔬菜</a>&nbsp; &nbsp; &nbsp; <a href="#">新鲜水果</a></span>
+             <span class="i_mores fr"><a href="#">{{value}}</a>&nbsp; &nbsp; &nbsp; <a href="#">进口酒</a>&nbsp; &nbsp; &nbsp; <a href="#">进口母婴</a>&nbsp; &nbsp; &nbsp; <a href="#">新鲜蔬菜</a>&nbsp; &nbsp; &nbsp; <a href="#">新鲜水果</a></span>
            </div>
            <div class="content">
 
              <div class="fresh_mid">
-               <ul>
-                 <li v-for="name in value">
-                   <div class="name"><a href="#">{{name}}</a></div>
+               <ul  v-for="name in value">
+                 <router-link :to="{path:  '/product', query:{goods_id:name[1]}}">
+                 <li>
+                   <div class="name"><a href="#">{{name[0]}}</a></div>
                    <div class="price">
                      <font>￥<span>198.00</span></font> &nbsp; 26R
                    </div>
                    <div class="img"><a href="#"><img src="../assets/images/fre_2.jpg" width="185" height="155" /></a></div>
                  </li>
-
-
-
+                 </router-link>
                </ul>
              </div>
            </div>
@@ -727,7 +725,6 @@
 
             }
         },
-
         mounted () {
             axios.get('http://localhost/laravel/laravel/blog/public/index.php/index/floor')
                 .then(response => (this.msg = response.data))
@@ -739,9 +736,7 @@
                 .catch(function (error) {
                     console.log(error);
                 });
-
         },
-
     }
 </script>
 

@@ -5,6 +5,7 @@ import Test from '@/components/Test'
 import Index from '@/components/Index'
 import Login from '@/components/Login'
 import MemberUser from '@/components/MemberUser'
+import Product from '@/components/Product'
 Vue.use(Router)
 
 export default new Router({
@@ -33,6 +34,11 @@ export default new Router({
       path: '/MemberUser',
       name: 'MemberUser',
       component: MemberUser,
+    },
+    {
+      path: '/Product',
+      name: 'Product',
+      component: Product,
     },
   ]
 })
