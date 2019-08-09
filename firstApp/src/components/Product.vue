@@ -1,6 +1,6 @@
 <template>
     <div>
-      {{msg}}
+      {{goodsattr}}
       <div class="top">
         <div class="logo"><a href="Index.html"><img src="../assets/images/logo.png" /></a></div>
         <div class="search">
@@ -92,7 +92,7 @@
               “开业巨惠，北京专柜直供”，不光低价，“真”才靠谱！
             </div>
             <div class="des_price">
-              本店价格：<b>￥589</b><br />
+              本店价格：<b v-for="val in goodsattr">{{val.price}}</b><br />
               消费积分：<span>28R</span>
             </div>
             <div class="des_choice" v-for="(value,key) in msg.data">
@@ -118,11 +118,11 @@
             </div>
             <div class="des_join">
               <div class="j_nums">
-                <input type="text" value="1" name="" class="n_ipt" />
+                <input type="text" value="1" id="num" name="" class="n_ipt" />
                 <input type="button" value="" onclick="addUpdate(jq(this));" class="n_btn_1" />
                 <input type="button" value="" onclick="jianUpdate(jq(this));" class="n_btn_2" />
               </div>
-              <span class="fl"><a onclick="ShowDiv_1('MyDiv1','fade1')"><img src="../assets/images/j_car.png" /></a></span>
+              <span class="fl"><a @click="buy"><img src="../assets/images/j_car.png" /></a></span>
             </div>
           </div>
           <div class="s_brand">
@@ -516,6 +516,8 @@
                 // attr : '',
                 isaxios : 1,
                 attr_details_id : '',
+                goodsattr : [],
+                huoping_id : '',
             }
         },
         mounted () {
@@ -551,21 +553,41 @@
                     $.each(this.msg.data,function (keyy,valuee) {
 
                      _this.attr_details_id = _this.attr_details_id +','+ $("input[name='"+keyy+"']:checked").val()
-                    // console.log(_this.attr_details_id)
+                    console.log(_this.attr_details_id)
                     })
                     axios.post(_this.url+'/index/attrdetails',{
                         attr_details_id : _this.attr_details_id,
                         goods_id : _this.$route.query.goods_id,
                     })
-                        .then(res=>{
-                            console.log(res.data)
-                        })
+                        // .then(res=>{
+                        //     console.log(res.data)
+                        // })
+                        .then(response => (this.goodsattr = response.data))
                     
                     _this.attr_details_id=''
                 }
                  
                 this.isaxios=1
             },
+
+            buy () {
+                var num=document.getElementById('num').value
+                // var id=''
+                // $.each(this.goodsattr,function(key,value) {
+                //     this.huoping_id=value.huoping_id
+                //     console.log(this.huoping_id)
+                // })
+                //console.log(this.goodsattr[0].huoping_id)
+                axios.post(this.url+'/auth/buycar',{
+                  num : num,
+                  huoping_id :this.goodsattr[0].huoping_id,
+                  username : localStorage.getItem("name"),
+                  token : localStorage.getItem("token"),
+                })
+                .then(res=>{
+                  console.log(res.data)
+                })
+            }
         },
     }
 </script>

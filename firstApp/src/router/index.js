@@ -6,6 +6,7 @@ import Index from '@/components/Index'
 import Login from '@/components/Login'
 import MemberUser from '@/components/MemberUser'
 import Product from '@/components/Product'
+import BuyCar from '@/components/BuyCar'
 Vue.use(Router)
 
 export default new Router({
@@ -39,6 +40,11 @@ export default new Router({
       path: '/Product',
       name: 'Product',
       component: Product,
+    },
+    {
+      path: '/BuyCar',
+      name: 'BuyCar',
+      component: BuyCar,
     },
   ]
 })
