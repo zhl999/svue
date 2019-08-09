@@ -1,6 +1,6 @@
 <template>
     <div>
-      {{goodsattr}}
+      {{msg.data}}
       <div class="top">
         <div class="logo"><a href="Index.html"><img src="../assets/images/logo.png" /></a></div>
         <div class="search">
@@ -99,7 +99,7 @@
               <span class="fl">{{key}}：</span>
               <label>
                 <span v-for="val in value">
-                <input class="checked" type="radio" v-bind:value="val[1]" v-bind:name="key" @click="getgoods" >{{val[0]}}
+                <input class="checked" type="radio" v-bind:value="val[1]" v-bind:id="val[0]" v-bind:name="key" @click="getgoods" >{{val[0]}}
                 </span>
               </label>
             </div>
@@ -543,8 +543,8 @@
                     //console.log($("input[name='"+key+"']:checked").val())
                     if ($("input[name='"+ key +"']:checked").val()==undefined){
                         _this.isaxios = 0
-                        console.log(_this.isaxios)
-                        console.log('nothing')
+                        //console.log(_this.isaxios)
+                        //console.log('nothing')
                     }
                 })
 
@@ -553,7 +553,7 @@
                     $.each(this.msg.data,function (keyy,valuee) {
 
                      _this.attr_details_id = _this.attr_details_id +','+ $("input[name='"+keyy+"']:checked").val()
-                    console.log(_this.attr_details_id)
+                   // console.log(_this.attr_details_id)
                     })
                     axios.post(_this.url+'/index/attrdetails',{
                         attr_details_id : _this.attr_details_id,
@@ -571,17 +571,23 @@
             },
 
             buy () {
+                var attr_name=''
                 var num=document.getElementById('num').value
-                // var id=''
-                // $.each(this.goodsattr,function(key,value) {
-                //     this.huoping_id=value.huoping_id
-                //     console.log(this.huoping_id)
-                // })
-                //console.log(this.goodsattr[0].huoping_id)
-                axios.post(this.url+'/auth/buycar',{
+                $.each(this.msg.data,function(k,v){
+                  name=$("input[name='"+k+"']:checked").attr("id")
+                  attr_name=attr_name+' '+k+":"+name
+                })
+                //console.log(attr_name)
+                var id=''
+                $.each(this.goodsattr,function(key,value) {
+                    this.huoping_id=value.huoping_id
+                    //console.log(this.huoping_id)
+                })
+               // console.log(this.goodsattr[0].huoping_id)
+                axios.post(this.url+'/car/buycar',{
+                  attr_name : attr_name,
                   num : num,
                   huoping_id :this.goodsattr[0].huoping_id,
-                  username : localStorage.getItem("name"),
                   token : localStorage.getItem("token"),
                 })
                 .then(res=>{

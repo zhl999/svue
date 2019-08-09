@@ -121,6 +121,7 @@
             </span>
             <span class="fl">|&nbsp;关注我们：</span>
             <span class="s_sh"><a href="#" class="sh1">新浪</a><a href="#" class="sh2">微信</a></span>
+            <span @click="gobuy">购物车</span>
 <!--            <span class="fr">|&nbsp;<a href="#">手机版&nbsp;<img src="../assets/images/s_tel.png" align="absmiddle" /></a></span>-->
         </span>
       </div>
@@ -135,6 +136,16 @@ export default {
       return {
          name: localStorage.getItem("name")
       }
+  },
+  methods : {
+    gobuy (){
+      axios.post(this.url+'/car/gobuy',{
+        token : localStorage.getItem("token"),
+      })
+      .then(res=>{
+        console.log(res)
+      })
+    }
   }
 }
 </script>
