@@ -99,8 +99,8 @@
               <span class="fl">{{key}}：</span>
               <label>
                 <span v-for="val in value">
-                <input class="checked" type="radio" v-bind:value="val[1]" v-bind:name="key">{{val[0]}}
-                  </span>
+                <input class="checked" type="radio" v-bind:value="val[1]" v-bind:name="key" @click="getgoods" >{{val[0]}}
+                </span>
               </label>
             </div>
             <div class="des_share">
@@ -125,13 +125,10 @@
               <span class="fl"><a onclick="ShowDiv_1('MyDiv1','fade1')"><img src="../assets/images/j_car.png" /></a></span>
             </div>
           </div>
-
           <div class="s_brand">
             <div class="s_brand_img"><img src="../assets/images/sbrand.jpg" width="188" height="132" /></div>
             <div class="s_brand_c"><a href="#">进入品牌专区</a></div>
           </div>
-
-
         </div>
         <div class="content mar_20">
           <div class="l_history">
@@ -370,8 +367,6 @@
 
           </div>
         </div>
-
-
         <!--Begin 弹出层-收藏成功 Begin-->
         <div id="fade" class="black_overlay"></div>
         <div id="MyDiv" class="white_content">
@@ -399,8 +394,6 @@
           </div>
         </div>
         <!--End 弹出层-收藏成功 End-->
-
-
         <!--Begin 弹出层-加入购物车 Begin-->
         <div id="fade1" class="black_overlay"></div>
         <div id="MyDiv1" class="white_content">
@@ -428,9 +421,6 @@
           </div>
         </div>
         <!--End 弹出层-加入购物车 End-->
-
-
-
         <!--Begin Footer Begin -->
         <div class="b_btm_bg bg_color">
           <div class="b_btm">
@@ -523,6 +513,9 @@
             return {
                 goods_id : '',
                 msg : [],
+                // attr : '',
+                isaxios : 1,
+                attr_details_id : '',
             }
         },
         mounted () {
@@ -535,11 +528,45 @@
                 //     console.log(res.data)
                 // })
                .then(response => (this.msg = response.data))
-                // console.log(this.msg)
                 // .catch(function (error) {
                 //     console.log(error);
                 // });
-        }
+        },
+        methods : {
+            getgoods () {
+                // this.attr = e.target.name;
+                // console.log(this.attr)
+               var _this = this
+                $.each(this.msg.data,function (key,value) {
+                    //console.log($("input[name='"+key+"']:checked").val())
+                    if ($("input[name='"+ key +"']:checked").val()==undefined){
+                        _this.isaxios = 0
+                        console.log(_this.isaxios)
+                        console.log('nothing')
+                    }
+                })
+
+                if (this.isaxios==1){
+                 // alert("11")
+                    $.each(this.msg.data,function (keyy,valuee) {
+
+                     _this.attr_details_id = _this.attr_details_id +','+ $("input[name='"+keyy+"']:checked").val()
+                    // console.log(_this.attr_details_id)
+                    })
+                    axios.post(_this.url+'/index/attrdetails',{
+                        attr_details_id : _this.attr_details_id,
+                        goods_id : _this.$route.query.goods_id,
+                    })
+                        .then(res=>{
+                            console.log(res.data)
+                        })
+                    
+                    _this.attr_details_id=''
+                }
+                 
+                this.isaxios=1
+            },
+        },
     }
 </script>
 
