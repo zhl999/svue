@@ -575,7 +575,7 @@
                 var num=document.getElementById('num').value
                 $.each(this.msg.data,function(k,v){
                   name=$("input[name='"+k+"']:checked").attr("id")
-                  attr_name=attr_name+' '+k+":"+name
+                  attr_name=attr_name+' '+k+"："+name
                 })
                 //console.log(attr_name)
                 var id=''

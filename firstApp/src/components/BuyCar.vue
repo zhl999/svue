@@ -1,14 +1,9 @@
 <template>
 <div>
-<!--Begin Header Begin-->
-<!--End Header End--> 
-<!--Begin Menu Begin-->
+{{msg}}
 <div class="menu_bg">
-  <div class="menu">
-      <!--Begin 商品分类详情 Begin-->    
-        
-        <!--End 商品分类详情 End-->                                                     
-      <ul class="menu_r">                                                                                                                                               
+  <div class="menu">                                                
+      <ul class="menu_r">                                  
           <li><a href="Index.html">首页</a></li>
             <li><a href="Food.html">美食</a></li>
             <li><a href="Fresh.html">生鲜</a></li>
@@ -26,95 +21,43 @@
     <div class="content mar_20">
       <img src="../assets/images/img1.jpg" />        
     </div>
-    
-    <!--Begin 第一步：查看购物车 Begin -->
     <div class="content mar_20">
       <table border="0" class="car_tab" style="width:1200px; margin-bottom:50px;" cellspacing="0" cellpadding="0">
           <tr>
-            <td class="car_th" width="490">商品名称</td>
-            <td class="car_th" width="140">属性</td>
+            <td class="car_th" width="80"><input type="checkbox" name=""> 全选</td>
+            <td class="car_th" width="250">商品名称</td>
+            <td class="car_th" width="300">属性</td>
             <td class="car_th" width="150">购买数量</td>
             <td class="car_th" width="130">小计</td>
             <td class="car_th" width="140">返还积分</td>
             <td class="car_th" width="150">操作</td>
           </tr>
-          <tr>
+          <tr v-for="(value,key) in msg">
+            <td style="text-align: center;"><input type="checkbox" v-bind:value="value.huoping_id" @click="mycheck(value)" name="aa"></td>
             <td>
               <div class="c_s_img"><img src="../assets/images/c_1.jpg" width="73" height="73" /></div>
-                Rio 锐澳 水蜜桃味白兰地鸡尾酒（预调酒） 275ml
+                {{value.goods_name}}
             </td>
-            <td align="center">颜色：灰色</td>
+            <td align="center">{{value.attr_name}}</td>
             <td align="center">
               <div class="c_num">
-                    <input type="button" value="" onclick="jianUpdate1(jq(this));" class="car_btn_1" />
-                  <input type="text" value="1" name="" class="car_ipt" />  
-                    <input type="button" value="" onclick="addUpdate1(jq(this));" class="car_btn_2" />
+               <!--  <input type="text" slot-scope="scope" :ibind:name="scope.key" :bind:value="scope.value.huoping_id">-
+                <span id="w" value="3" @click="jian">-</span>
+                <input type="text" slot-scope="scope" :ibind:id="scope.value.huoping_id">{{value.number}}
+                <span>+</span> -->
+                    <input type="button" value="" v-on:click="greed(value.number -= 1,value.huoping_id)"  class="car_btn_1" />
+                    <input type="text" name="" v-bind:value="value.number" class="car_ipt" />
+                    <input type="button" value="" v-on:click="greed(value.number += 1,value.huoping_id)" class="car_btn_2" />
                 </div>
             </td>
-            <td align="center" style="color:#ff4e00;">￥620.00</td>
+            <td align="center" style="color:#ff4e00;">{{value.number * value.price}}</td>
             <td align="center">26R</td>
             <td align="center"><a onclick="ShowDiv('MyDiv','fade')">删除</a>&nbsp; &nbsp;<a href="#">收藏</a></td>
           </tr>
-          <tr class="car_tr">
-            <td>
-              <div class="c_s_img"><img src="../assets/images/c_2.jpg" width="73" height="73" /></div>
-                Rio 锐澳 水蜜桃味白兰地鸡尾酒（预调酒） 275ml
-            </td>
-            <td align="center">颜色：灰色</td>
-            <td align="center">
-              <div class="c_num">
-                    <input type="button" value="" onclick="jianUpdate1(jq(this));" class="car_btn_1" />
-                  <input type="text" value="1" name="" class="car_ipt" />  
-                    <input type="button" value="" onclick="addUpdate1(jq(this));" class="car_btn_2" />
-                </div>
-            </td>
-            <td align="center" style="color:#ff4e00;">￥620.00</td>
-            <td align="center">26R</td>
-            <td align="center"><a href="#">删除</a>&nbsp; &nbsp;<a href="#">收藏</a></td>
-          </tr>
-          <tr>
-            <td>
-              <div class="c_s_img"><img src="../assets/images/c_3.jpg" width="73" height="73" /></div>
-                Rio 锐澳 水蜜桃味白兰地鸡尾酒（预调酒） 275ml
-            </td>
-            <td align="center">颜色：灰色</td>
-            <td align="center">
-              <div class="c_num">
-                    <input type="button" value="" onclick="jianUpdate1(jq(this));" class="car_btn_1" />
-                  <input type="text" value="1" name="" class="car_ipt" />  
-                    <input type="button" value="" onclick="addUpdate1(jq(this));" class="car_btn_2" />
-                </div>
-            </td>
-            <td align="center" style="color:#ff4e00;">￥620.00</td>
-            <td align="center">26R</td>
-            <td align="center"><a href="#">删除</a>&nbsp; &nbsp;<a href="#">收藏</a></td>
-          </tr>
-          <tr class="car_tr">
-            <td>
-              <div class="c_s_img"><img src="../assets/images/c_4.jpg" width="73" height="73" /></div>
-                Rio 锐澳 水蜜桃味白兰地鸡尾酒（预调酒） 275ml
-            </td>
-            <td align="center">颜色：灰色</td>
-            <td align="center">
-              <div class="c_num">
-                    <input type="button" value="" onclick="jianUpdate1(jq(this));" class="car_btn_1" />
-                  <input type="text" value="1" name="" class="car_ipt" />  
-                    <input type="button" value="" onclick="addUpdate1(jq(this));" class="car_btn_2" />
-                </div>
-            </td>
-            <td align="center" style="color:#ff4e00;">￥620.00</td>
-            <td align="center">26R</td>
-            <td align="center"><a href="#">删除</a>&nbsp; &nbsp;<a href="#">收藏</a></td>
-          </tr>
-          <tr height="70">
-            <td colspan="6" style="font-family:'Microsoft YaHei'; border-bottom:0;">
-              <label class="r_rad"><input type="checkbox" name="clear" checked="checked" /></label><label class="r_txt">清空购物车</label>
-                <span class="fr">商品总价：<b style="font-size:22px; color:#ff4e00;">￥2899</b></span>
-            </td>
-          </tr>
           <tr valign="top" height="150">
             <td colspan="6" align="right">
-              <a href="#"><img src="../assets/images/buy1.gif" /></a>&nbsp; &nbsp; <a href="#"><img src="../assets/images/buy2.gif" /></a>
+              <a href="#"><img src="../assets/images/buy1.gif" /></a>&nbsp; &nbsp; <img src="../assets/images/buy2.gif"  @click="topay" />
+              <span id="z_price">总价:{{a_price}}</span>
             </td>
           </tr>
         </table>
@@ -239,9 +182,75 @@
     export default {
         data () {
             return {
-
+              msg:[],
+              s_arr:[],
+              a_price:0,
+              // box_arr:[],
             }
         },
+        mounted () {
+           axios.post(this.url+'/car/carshow',{
+            token : localStorage.getItem("token"),
+           })
+            .then(res=>{
+              // console.log(res)
+              this.msg=res.data
+              //this.num=this.msg[0].number
+              // console.log(this.num)
+            })
+            //.then(response => (this.msg = response.data))
+                
+        },
+        methods:{
+          greed(res,huoping_id){
+
+            axios.post(this.url+'/car/greed',{
+
+              num : res,
+              token : localStorage.getItem("token"),
+              huoping_id:huoping_id,
+            })
+              .then(res=>{
+                //_this.num=res.data
+                console.log(res.data)
+              })
+          },
+          mycheck(value){
+            var arr = value.huoping_id
+            // console.log(arr)
+            if (this.s_arr[arr]==undefined || this.s_arr[arr]=='' ) {
+              this.s_arr[arr]=value
+              console.log(this.s_arr)
+            }else{
+              this.s_arr[arr]=''
+              console.log(this.s_arr)
+            }
+            var z_price=0
+            this.s_arr.forEach(function (val) {
+              console.log(val)
+              if (val != ''){
+                z_price += val.number * val.price
+              }
+            })
+            this.a_price=z_price
+          },
+          topay (){
+            // alert(1)
+            var box_arr=[]
+            $.each(this.msg,function(key,val){
+              var box=$('input[name="aa"]');
+              for (var x in box) {
+                if (box[x].checked) box_arr.push(box[x].value);
+              }
+              // box_arr = box_arr.filter(d=>d);
+             
+              // var huoping_id=$("input[name='qq']:checked").val()
+            })
+             console.log(box_arr)
+            // console.log(this.box_arr)
+            //this.$router.push({ name: 'pay', params: { userId: 123 }});
+          }
+        }
     }
 </script>
 

@@ -139,12 +139,19 @@ export default {
   },
   methods : {
     gobuy (){
-      axios.post(this.url+'/car/gobuy',{
-        token : localStorage.getItem("token"),
-      })
-      .then(res=>{
-        console.log(res)
-      })
+      if (!localStorage.getItem("token")) {
+        alert('请先登录！')
+        this.$router.push({name: 'Login'});
+      }else{
+        axios.post(this.url+'/car/gobuy',{
+          token : localStorage.getItem("token"),
+        })
+        .then(res=>{
+          if (res.status==200) {
+            this.$router.push({name: 'BuyCar'});
+          }
+        })
+      }
     }
   }
 }

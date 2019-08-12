@@ -7,6 +7,8 @@ import Login from '@/components/Login'
 import MemberUser from '@/components/MemberUser'
 import Product from '@/components/Product'
 import BuyCar from '@/components/BuyCar'
+import Address from '@/components/Address'
+import Pay from '@/components/Pay'
 Vue.use(Router)
 
 export default new Router({
@@ -45,6 +47,16 @@ export default new Router({
       path: '/BuyCar',
       name: 'BuyCar',
       component: BuyCar,
+    },
+    {
+      path: '/Address',
+      name: 'Address',
+      component: Address,
+    },
+    {
+      path: '/Pay',
+      name: 'Pay',
+      component: Pay,
     },
   ]
 })
