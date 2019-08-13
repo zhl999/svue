@@ -246,9 +246,17 @@
              
               // var huoping_id=$("input[name='qq']:checked").val()
             })
-             console.log(box_arr)
-            // console.log(this.box_arr)
-            //this.$router.push({ name: 'pay', params: { userId: 123 }});
+             // console.log(box_arr)
+             var new_arr=[];
+             for(var i=0;i<box_arr.length;i++) {
+             　　var items=box_arr[i];
+             　　//判断元素是否存在于new_arr中，如果不存在则插入到new_arr的最后
+             　　if($.inArray(items,new_arr)==-1) {
+             　　　　new_arr.push(items);
+             　　}
+             }
+            console.log(new_arr)
+            this.$router.push({ name: 'Pay', query: { new_arr }});
           }
         }
     }

@@ -45,37 +45,18 @@
               <div class="mem_tit">收货地址</div>
         <div class="address">
                 <div class="a_close"><a href="#"><img src="../assets/images/a_close.png" /></a></div>
-                <table border="0" class="add_t" align="center" style="width:98%; margin:10px auto;" cellspacing="0" cellpadding="0">
+                <table v-for="(val,key) in msg" border="0" class="add_t" align="center" style="width:98%; margin:10px auto;" cellspacing="0" cellpadding="0">
                     <tr>
-                      <td colspan="2" style="font-size:14px; color:#ff4e00;">杨杨公司</td>
-                    </tr>
-                    <tr>
-                      <td align="right" width="80">收货人姓名：</td>
-                      <td>杨杨</td>
-                    </tr>
-                    <tr>
-                      <td align="right">配送区域：</td>
-                      <td>四川成都市武侯区三环以内</td>
+                      <td align="right" width="100">收货人姓名：</td>
+                      <td>{{val.s_h_name}}</td>
                     </tr>
                     <tr>
                       <td align="right">详细地址：</td>
-                      <td>科华北路66号世外桃源写字楼3楼</td>
+                      <td>{{val.address_name}}</td>
                     </tr>
                     <tr>
                       <td align="right">手机：</td>
-                      <td>12345678998</td>
-                    </tr>
-                    <tr>
-                      <td align="right">电话：</td>
-                      <td>028-12345678</td>
-                    </tr>
-                    <tr>
-                      <td align="right">电子邮箱：</td>
-                      <td>123456789@qq.com</td>
-                    </tr>
-                    <tr>
-                      <td align="right">标志建筑：</td>
-                      <td>世外桃源</td>
+                      <td>{{val.s_h_phone}}</td>
                     </tr>
                   </table>
           
@@ -232,6 +213,7 @@
         p_id:1,
         city:[],
         s_city:[],
+        msg:[],
 
       }
     },  
@@ -245,7 +227,16 @@
       .then(res=>{
         this.sheng=res.data
         console.log(this.sheng)
+      }),
+
+      axios .post(this.url+'/address/alladd',{
+        token : localStorage.getItem("token"),
       })
+      .then(res=>{
+        this.msg=res.data
+        console.log(res.data)
+      })
+
     },
     methods : {
       getprovince (event){
