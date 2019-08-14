@@ -409,6 +409,9 @@
             })
             .then(res=>{
               console.log(res.data)
+              var token=localStorage.getItem("token")
+               location.href="http://localhost/laravel/laravel/blog/public/api/paya/index?token="+token+"&oid="+res.data[0]+"&order="+res.data[1]
+
             })
           }
         }
