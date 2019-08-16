@@ -698,12 +698,12 @@
             }
         },
         mounted () {
-            axios.get('http://localhost/laravel/laravel/blog/public/index.php/index/floor')
+            axios.get(this.url+'/index/floor')
                 .then(response => (this.msg = response.data))
                 .catch(function (error) {
                     console.log(error);
                 });
-            axios.get('http://localhost/laravel/laravel/blog/public/index.php/index/showcategory')
+            axios.get(this.url+'/index/showcategory')
                 .then(response => (this.ma = response.data))
                 .catch(function (error) {
                     console.log(error);

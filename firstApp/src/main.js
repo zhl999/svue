@@ -5,7 +5,7 @@ import App from './App'
 import router from './router'
 
 Vue.config.productionTip = false
-Vue.prototype.url = "http://localhost/laravel/laravel/blog/public/index.php/api"
+Vue.prototype.url = "https://laravel.m1yun.cn/api"
 /* eslint-disable no-new */
 new Vue({
   el: '#app',
